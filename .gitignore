@@ -1,0 +1,32 @@
+# Cursor
+.cursor/
+
+# IDE
+.idea/
+.vscode/settings.json
+*.code-workspace
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# OneScript / opm
+oscript_modules/
+*.ospx
+built/
+out/
+
+# Логи и временные файлы
+*.log
+*.err
+*~
+
+# Данные запущенного сервиса и локальная конфигурация
+data/
+.env
+coverage/
+# Личные заметки
+docs/CONVENTIONS.md
