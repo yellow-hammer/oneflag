@@ -1,0 +1,226 @@
+:root {
+    --фон: #0f1117;
+    --поверхность: #171a23;
+    --поверхность-2: #1e222d;
+    --граница: #272b38;
+    --текст: #e6e8ee;
+    --текст-приглушённый: #8b91a3;
+    --акцент: #4f7cff;
+    --успех: #2ecc71;
+    --ошибка: #ff5c5c;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: var(--фон);
+    color: var(--текст);
+    font: 15px/1.5 -apple-system, "Segoe UI", Roboto, Ubuntu, sans-serif;
+}
+
+.обёртка { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+/* Шапка */
+
+.шапка {
+    background: var(--поверхность);
+    border-bottom: 1px solid var(--граница);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.шапка-строка { display: flex; align-items: center; gap: 24px; height: 60px; }
+
+.лого { font-weight: 700; font-size: 18px; letter-spacing: -0.02em; }
+.лого::before { content: "◆"; color: var(--акцент); margin-right: 8px; }
+
+.окружения { display: flex; gap: 4px; }
+
+.окружение {
+    padding: 6px 14px;
+    border-radius: 8px;
+    color: var(--текст-приглушённый);
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.15s, color 0.15s;
+}
+
+.окружение:hover { background: var(--поверхность-2); color: var(--текст); }
+.окружение.активное { background: var(--акцент); color: #fff; }
+
+.справа { margin-left: auto; display: flex; align-items: center; gap: 14px; font-size: 13px; }
+.пользователь { color: var(--текст-приглушённый); }
+.выход { color: var(--текст-приглушённый); text-decoration: none; }
+.выход:hover { color: var(--текст); }
+
+/* Индикатор живого соединения */
+
+.индикатор {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--поверхность-2);
+    color: var(--текст-приглушённый);
+    font-size: 12px;
+}
+
+.индикатор::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--текст-приглушённый);
+}
+
+.индикатор.живой { color: var(--успех); }
+.индикатор.живой::before { background: var(--успех); animation: пульс 2s ease-in-out infinite; }
+
+@keyframes пульс {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* Карточки */
+
+.карточка {
+    background: var(--поверхность);
+    border: 1px solid var(--граница);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin: 24px 0;
+}
+
+.карточка h2 { margin: 0 0 16px; font-size: 15px; font-weight: 600; color: var(--текст-приглушённый); }
+
+/* Таблица флагов */
+
+.флаги { width: 100%; border-collapse: collapse; }
+
+.флаги th {
+    text-align: left;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--текст-приглушённый);
+    border-bottom: 1px solid var(--граница);
+}
+
+.флаги td { padding: 14px 12px; border-bottom: 1px solid var(--граница); vertical-align: middle; }
+.флаги tr:last-child td { border-bottom: none; }
+.вправо { text-align: right; }
+
+.ключ { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 14px; }
+.подпись { color: var(--текст-приглушённый); font-size: 13px; margin-top: 2px; }
+
+.тег {
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: var(--поверхность-2);
+    color: var(--текст-приглушённый);
+    font-size: 12px;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+}
+
+.состояние { color: var(--текст-приглушённый); font-size: 13px; }
+.флаги tr.включен .состояние { color: var(--успех); }
+
+/* Тумблер */
+
+.тумблер {
+    width: 46px;
+    height: 26px;
+    border-radius: 999px;
+    border: none;
+    background: var(--поверхность-2);
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s;
+    padding: 0;
+}
+
+.тумблер.вкл { background: var(--успех); }
+
+.ручка {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    transition: transform 0.2s;
+}
+
+.тумблер.вкл .ручка { transform: translateX(20px); }
+
+/* Процентная выкатка */
+
+.выкатка { display: flex; align-items: center; gap: 10px; }
+.выкатка input[type=range] { width: 120px; accent-color: var(--акцент); }
+.процент { font-size: 13px; color: var(--текст-приглушённый); min-width: 38px; }
+
+/* Формы */
+
+.форма-создания { display: flex; gap: 10px; flex-wrap: wrap; }
+
+input, select {
+    background: var(--поверхность-2);
+    border: 1px solid var(--граница);
+    border-radius: 8px;
+    padding: 9px 12px;
+    color: var(--текст);
+    font: inherit;
+    font-size: 14px;
+}
+
+input:focus, select:focus { outline: none; border-color: var(--акцент); }
+.форма-создания input { flex: 1; min-width: 150px; }
+
+.кнопка {
+    background: var(--акцент);
+    border: none;
+    border-radius: 8px;
+    padding: 9px 20px;
+    color: #fff;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.кнопка:hover { filter: brightness(1.1); }
+
+/* Журнал */
+
+.журнал { list-style: none; margin: 0; padding: 0; font-size: 13px; }
+
+.журнал li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--граница);
+    color: var(--текст-приглушённый);
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    animation: появление 0.3s ease-out;
+}
+
+.журнал li:last-child { border-bottom: none; }
+
+@keyframes появление {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: none; }
+}
+
+.пусто { color: var(--текст-приглушённый); font-size: 14px; }
+.ошибка { color: var(--ошибка); font-size: 14px; margin: 0 0 12px; }
+
+/* Вход */
+
+body.вход { display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+
+.форма-входа { display: flex; flex-direction: column; gap: 14px; width: 320px; }
+.форма-входа .лого { font-size: 22px; }
+.форма-входа .подпись { margin: -8px 0 8px; }
+.форма-входа label { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--текст-приглушённый); }

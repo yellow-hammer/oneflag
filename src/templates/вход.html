@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Вход - OneFlag</title>
+	<link rel="stylesheet" href="/static/oneflag.css">
+</head>
+<body class="вход">
+
+<form class="карточка форма-входа" method="post" action="/login">
+	<div class="лого">OneFlag</div>
+	<p class="подпись">Управление фича-флагами</p>
+	{% Если Не ПустаяСтрока(Модель.Ошибка) Тогда %}
+	<p class="ошибка">{{ View.ЭкранироватьHtml(Модель.Ошибка) }}</p>
+	{% КонецЕсли; %}
+	<label>Логин<input name="login" autocomplete="username" autofocus></label>
+	<label>Пароль<input name="password" type="password" autocomplete="current-password"></label>
+	<button type="submit" class="кнопка">Войти</button>
+</form>
+
+</body>
+</html>

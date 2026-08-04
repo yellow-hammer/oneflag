@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>OneFlag - управление фича-флагами</title>
+	{{ View.ТегиПодключения("/vendor") }}
+	<link rel="stylesheet" href="/static/oneflag.css">
+</head>
+<body data-окружение="{{ View.ЭкранироватьАтрибут(Модель.Окружение) }}">
+
+<header class="шапка">
+	<div class="обёртка шапка-строка">
+		<div class="лого">OneFlag</div>
+		<nav class="окружения">
+			{% Для Каждого Запись Из Модель.Окружения Цикл %}
+			<a class="окружение{% Если Запись = Модель.Окружение Тогда %} активное{% КонецЕсли; %}"
+			   href="/?env={{ View.ЭкранироватьАтрибут(Запись) }}">{{ View.ЭкранироватьHtml(Запись) }}</a>
+			{% КонецЦикла; %}
+		</nav>
+		<div class="справа">
+			<span id="индикатор" class="индикатор" title="Соединение с потоком изменений">офлайн</span>
+			<span class="пользователь">{{ View.ЭкранироватьHtml(Модель.Пользователь) }}</span>
+			<a class="выход" href="/logout">выйти</a>
+		</div>
+	</div>
+</header>
+
+@Контент
+
+<script src="/static/oneflag.js"></script>
+</body>
+</html>

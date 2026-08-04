@@ -1,0 +1,31 @@
+<main class="обёртка">
+
+<section class="карточка">
+	<h2>Новый флаг</h2>
+	<form class="форма-создания"
+	      hx-post="/ui/flags?env={{ View.ЭкранироватьАтрибут(Модель.Окружение) }}"
+	      hx-target="#таблица-флагов"
+	      hx-swap="innerHTML"
+	      hx-on::after-request="if(event.detail.successful) this.reset()">
+		<input name="ключ" placeholder="ключ-флага" required pattern="[A-Za-z0-9._-]+">
+		<input name="имя" placeholder="Понятное название">
+		<select name="тип">
+			<option value="boolean">boolean</option>
+			<option value="string">string</option>
+			<option value="number">number</option>
+		</select>
+		<button type="submit" class="кнопка">Создать</button>
+	</form>
+</section>
+
+<section class="карточка">
+	<h2>Флаги</h2>
+	<div id="таблица-флагов">{{ Модель.ТаблицаФлагов }}</div>
+</section>
+
+<section class="карточка">
+	<h2>Журнал изменений</h2>
+	<ul id="журнал" class="журнал"><li class="пусто">Изменений пока не было</li></ul>
+</section>
+
+</main>
