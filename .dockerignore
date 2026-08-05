@@ -1,0 +1,12 @@
+tests/
+docs/
+tasks/
+.github/
+.cursor/
+data/
+oscript_modules/
+build/
+*.ospx
+*.log
+*.err
+.env

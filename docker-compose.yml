@@ -1,0 +1,57 @@
+name: oneflag
+
+# Демонстрационный стенд OneFlag.
+#
+#   docker compose up --build          поднять сервер
+#   открыть http://localhost:3333      логин admin / admin
+#
+#   docker compose --profile demo up   поднять сервер вместе с клиентским
+#                                      приложением, которое печатает своё
+#                                      поведение и меняет его на глазах,
+#                                      как только вы щёлкнете флаг
+
+services:
+
+  oneflag:
+    build:
+      context: .
+    image: oneflag:local
+    container_name: oneflag
+    ports:
+      - "3333:3333"
+    environment:
+      ONEFLAG_PORT: "3333"
+      ONEFLAG_STORAGE: /oneflag/data/oneflag.json
+      # Значения для локального стенда. Для реальной установки задайте свои.
+      ONEFLAG_SECRET: демонстрационный-секрет-замените-в-продакшене
+      ONEFLAG_ADMIN_LOGIN: admin
+      ONEFLAG_ADMIN_PASSWORD: admin
+      ONEFLAG_SDK_KEY: local-sdk-key
+      ONEFLAG_ENVIRONMENTS: dev,stage,prod
+      ONEFLAG_DEFAULT_ENVIRONMENT: dev
+    volumes:
+      - oneflag-data:/oneflag/data
+    restart: unless-stopped
+
+  # Клиентское приложение: подключается по OpenFeature и живёт своей жизнью.
+  # Смотреть вывод: docker compose logs -f demo-client
+  demo-client:
+    image: oneflag:local
+    container_name: oneflag-demo-client
+    profiles: ["demo"]
+    depends_on:
+      oneflag:
+        condition: service_healthy
+    environment:
+      ONEFLAG_SDK_KEY: local-sdk-key
+    command: >
+      oscript /oneflag/demo/ЖивойКлиент.os
+      http://oneflag:3333 local-sdk-key dev 600
+    # Образ общий с сервером, но здесь это клиент, а не веб-приложение,
+    # поэтому серверная проверка живости из образа не применяется
+    healthcheck:
+      disable: true
+    restart: unless-stopped
+
+volumes:
+  oneflag-data:
