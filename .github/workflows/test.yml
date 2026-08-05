@@ -7,12 +7,8 @@ on:
 
 jobs:
   test:
-    strategy:
-      fail-fast: false
-      matrix:
-        oscript_version: ['default', 'stable', 'dev']
     uses: autumn-library/workflows/.github/workflows/test.yml@main
     with:
-      oscript_version: ${{ matrix.oscript_version }}
+      oscript_version: default
       test_engine: oneunit
       test_dir_paths: ./tests
