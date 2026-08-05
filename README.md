@@ -4,19 +4,18 @@ Self-hosted сервис управления фича-флагами и remote-
 
 Главное свойство: **изменение флага доходит до приложений мгновенно**. Оператор щёлкает тумблер в дашборде - подключённые приложения меняют поведение в ту же секунду, без перезапуска и без опроса сервера.
 
-```
-        дашборд (htmx + Alpine)
-                 │  щелчок по тумблеру
-                 ▼
-        ┌──────────────────────┐
-        │  OneFlag             │   REST API · оценка · SSE-поток
-        │  winow + autumn      │   аудит в CloudEvents
-        └──────────┬───────────┘
-                   │  событие com.oneflag.flag.changed
-        ┌──────────┴───────────┐
-        ▼                      ▼
-  другие дашборды        приложения (OpenFeature SDK)
-  строка обновилась      поведение изменилось
+```mermaid
+flowchart TB
+  Dashboard["дашборд<br/>htmx + Alpine"]
+  subgraph Service["OneFlag · winow + autumn"]
+    Caps["REST API · оценка · SSE-поток<br/>аудит в CloudEvents"]
+  end
+  OtherDash["другие дашборды<br/>строка обновилась"]
+  Apps["приложения · OpenFeature SDK<br/>поведение изменилось"]
+
+  Dashboard -->|щелчок по тумблеру| Service
+  Service -->|событие com.oneflag.flag.changed| OtherDash
+  Service -->|событие com.oneflag.flag.changed| Apps
 ```
 
 ## Быстрый старт
