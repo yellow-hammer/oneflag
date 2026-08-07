@@ -1,5 +1,11 @@
 # OneFlag
 
+<!-- Заглушка: подставить идентификатор репозитория в OpenYellow
+[![OpenYellow](https://openyellow.openintegrations.dev/data/badges/ID.svg)](https://openyellow.org/grid?filter=top&repo=ID)
+-->
+[![telegram chat](https://img.shields.io/badge/telegram-chat-green.svg)](https://t.me/wonder_yellow)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/yellow-hammer/oneflag)
+
 Self-hosted сервис управления фича-флагами и remote-config на чистом OneScript. Аналог Unleash и Flagsmith для команд, которым нужно решение внутри закрытого контура и на родном стеке.
 
 Главное свойство: **изменение флага доходит до приложений мгновенно**. Оператор щёлкает тумблер в дашборде - подключённые приложения меняют поведение в ту же секунду, без перезапуска и без опроса сервера.
