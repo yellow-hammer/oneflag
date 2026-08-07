@@ -8,20 +8,15 @@
 
 Self-hosted сервис управления фича-флагами и remote-config на чистом OneScript. Аналог Unleash и Flagsmith для команд, которым нужно решение внутри закрытого контура и на родном стеке.
 
+![Дашборд OneFlag](docs/images/dashboard.png)
+
 Главное свойство: **изменение флага доходит до приложений мгновенно**. Оператор щёлкает тумблер в дашборде - подключённые приложения меняют поведение в ту же секунду, без перезапуска и без опроса сервера.
 
 ```mermaid
-flowchart TB
-  Dashboard["дашборд<br/>htmx + Alpine"]
-  subgraph Service["OneFlag · winow + autumn"]
-    Caps["REST API · оценка · SSE-поток<br/>аудит в CloudEvents"]
-  end
-  OtherDash["другие дашборды<br/>строка обновилась"]
-  Apps["приложения · OpenFeature SDK<br/>поведение изменилось"]
-
-  Dashboard -->|щелчок по тумблеру| Service
-  Service -->|событие com.oneflag.flag.changed| OtherDash
-  Service -->|событие com.oneflag.flag.changed| Apps
+flowchart LR
+  D["дашборд · htmx + Alpine"] -->|тумблер| S["OneFlag · REST · SSE · аудит"]
+  S -->|flag.changed| O["другие дашборды"]
+  S -->|flag.changed| A["приложения · OpenFeature SDK"]
 ```
 
 ## Быстрый старт
