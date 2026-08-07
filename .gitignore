@@ -15,6 +15,7 @@ Thumbs.db
 
 # OneScript / opm
 oscript_modules/
+src/oscript.cfg
 *.ospx
 built/
 out/
